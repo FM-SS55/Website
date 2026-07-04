@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Anchorline Facility Management{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="{{ url_for('public.home') }}" class="logo">
+      <span class="name">ANCHORLINE</span>
+      <span class="tag">FACILITY MANAGEMENT</span>
+    </a>
+    <nav class="nav-links">
+      <div class="nav-dropdown">
+        <a href="{{ url_for('public.services_index') }}">Services</a>
+        <div class="dropdown-menu">
+          <a href="{{ url_for('public.service_facilities_management') }}">Facilities Management</a>
+          <a href="{{ url_for('public.service_property_management') }}">Property Management</a>
+          <a href="{{ url_for('public.service_maintenance_repairs') }}">Maintenance &amp; Repairs</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="{{ url_for('public.sectors_index') }}">Sectors</a>
+        <div class="dropdown-menu">
+          <a href="{{ url_for('public.sector_offices') }}">Offices</a>
+          <a href="{{ url_for('public.sector_retail') }}">Retail</a>
+          <a href="{{ url_for('public.sector_industrial') }}">Industrial</a>
+        </div>
+      </div>
+      <a href="{{ url_for('public.insights') }}">Insights</a>
+      <a href="{{ url_for('public.careers') }}">Careers</a>
+      <a href="{{ url_for('public.contact') }}">Contact</a>
+    </nav>
+    <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Contact us</a>
+  </div>
+</header>
+
+{% block content %}{% endblock %}
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="margin-bottom:16px;">
+          <span class="name">ANCHORLINE</span>
+          <span class="tag">FACILITY MANAGEMENT</span>
+        </div>
+        <p style="max-width:32ch; font-size:14.5px;">Facility management for offices, retail and industrial sites.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="{{ url_for('public.service_facilities_management') }}">Facilities Management</a>
+        <a href="{{ url_for('public.service_property_management') }}">Property Management</a>
+        <a href="{{ url_for('public.service_maintenance_repairs') }}">Maintenance &amp; Repairs</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="{{ url_for('public.sectors_index') }}">Sectors</a>
+        <a href="{{ url_for('public.insights') }}">Insights</a>
+        <a href="{{ url_for('public.careers') }}">Careers</a>
+        <a href="{{ url_for('public.contact') }}">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom wrap" style="padding-left:0; padding-right:0;">
+      <span>© 2026 Anchorline Facility Management</span>
+      <span>[Your city], India</span>
+    </div>
+  </div>
+</footer>
+
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

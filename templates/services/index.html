@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Sectors — Anchorline Facility Management{% endblock %}
+
+{% block content %}
+
+<section class="hero" style="padding-bottom:20px;">
+  <div class="wrap">
+    <div class="eyebrow">FIG. 07 — SECTORS</div>
+    <h1 style="max-width:16ch;">Built for how different buildings actually get used.</h1>
+    <p class="lead" style="margin-top:20px;">An office, a retail unit and a warehouse don't run the same way — our scopes are shaped around each one.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="tight">
+  <div class="wrap">
+    <div class="grid-3">
+      <div class="card">
+        <span class="num">SECTOR</span>
+        <h3><a href="{{ url_for('public.sector_offices') }}" style="color:inherit;">Offices &amp; corporate campuses</a></h3>
+        <p>Commercial buildings that need day-to-day operations handled by one accountable team.</p>
+        <p style="margin-top:14px;"><a href="{{ url_for('public.sector_offices') }}" style="text-decoration:underline; font-size:13.5px;">Learn more →</a></p>
+      </div>
+      <div class="card">
+        <span class="num">SECTOR</span>
+        <h3><a href="{{ url_for('public.sector_retail') }}" style="color:inherit;">Retail &amp; mixed-use sites</a></h3>
+        <p>Multi-tenant properties where cleaning, security and repairs all need to run in sync with footfall.</p>
+        <p style="margin-top:14px;"><a href="{{ url_for('public.sector_retail') }}" style="text-decoration:underline; font-size:13.5px;">Learn more →</a></p>
+      </div>
+      <div class="card">
+        <span class="num">SECTOR</span>
+        <h3><a href="{{ url_for('public.sector_industrial') }}" style="color:inherit;">Industrial &amp; warehousing</a></h3>
+        <p>Sites where uptime on mechanical systems and safety compliance directly affects operations.</p>
+        <p style="margin-top:14px;"><a href="{{ url_for('public.sector_industrial') }}" style="text-decoration:underline; font-size:13.5px;">Learn more →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tight" style="padding-top:0; text-align:center;">
+  <div class="wrap">
+    <h2>Don't see your building type?</h2>
+    <p class="lead" style="margin:14px auto 28px;">Tell us about your site — most scopes are a mix of more than one sector anyway.</p>
+    <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Contact us</a>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — Anchorline</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<style>
+  .admin-wrap{max-width:960px; margin:0 auto; padding:40px 24px 80px;}
+  .admin-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:36px;}
+  table{width:100%; border-collapse:collapse; margin-bottom:16px;}
+  th, td{text-align:left; padding:10px 8px; border-bottom:1px solid var(--line); font-size:14.5px;}
+  th{font-family:var(--mono); font-size:11px; text-transform:uppercase; color:var(--slate);}
+  .row-actions{display:flex; gap:8px;}
+  .row-actions button{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    padding:5px 10px; border:1px solid var(--line); background:none; cursor:pointer; border-radius:2px;
+  }
+  .row-actions button:hover{border-color:var(--ink);}
+  .badge{font-family:var(--mono); font-size:11px; padding:3px 8px; border-radius:20px;}
+  .badge.on{color:#1B7A3D; border:1px solid #1B7A3D;}
+  .badge.off{color:var(--slate); border:1px solid var(--line);}
+  .add-form{border:1px solid var(--line); padding:20px; margin-bottom:40px;}
+  .inline-fields{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
+</style>
+</head>
+<body>
+<div class="admin-wrap">
+  <div class="admin-header">
+    <div class="logo">
+      <span class="name">ANCHORLINE</span>
+      <span class="tag">ADMIN</span>
+    </div>
+    <form action="{{ url_for('admin.logout') }}" method="POST">
+      <button type="submit" class="btn btn-ghost">Log out</button>
+    </form>
+  </div>
+
+  <section>
+    <div class="eyebrow">CAREERS</div>
+    <h2 style="margin-bottom:20px;">Manage roles</h2>
+
+    <div class="add-form">
+      <form action="{{ url_for('admin.add_role') }}" method="POST">
+        <div class="inline-fields">
+          <div class="field">
+            <label>Title</label>
+            <input name="title" type="text" required placeholder="e.g. Facility Technician">
+          </div>
+          <div class="field">
+            <label>Category / tag</label>
+            <input name="category" type="text" required placeholder="e.g. Maintenance">
+          </div>
+          <div class="field">
+            <label>Location</label>
+            <input name="location" type="text" required placeholder="e.g. On-site">
+          </div>
+          <div class="field">
+            <label>Employment type</label>
+            <input name="employment_type" type="text" required placeholder="e.g. Full-time">
+          </div>
+        </div>
+        <div style="margin-top:14px;">
+          <button type="submit" class="btn btn-primary">Add role</button>
+        </div>
+      </form>
+    </div>
+
+    <table>
+      <thead><tr><th>Title</th><th>Category</th><th>Location</th><th>Type</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        {% for r in roles %}
+        <tr>
+          <td>{{ r.title }}</td>
+          <td>{{ r.category }}</td>
+          <td>{{ r.location }}</td>
+          <td>{{ r.employment_type }}</td>
+          <td><span class="badge {{ 'on' if r.active else 'off' }}">{{ 'Live' if r.active else 'Hidden' }}</span></td>
+          <td>
+            <div class="row-actions">
+              <form action="{{ url_for('admin.toggle_role', role_id=r.id) }}" method="POST">
+                <button type="submit">{{ 'Hide' if r.active else 'Publish' }}</button>
+              </form>
+              <form action="{{ url_for('admin.delete_role', role_id=r.id) }}" method="POST" onsubmit="return confirm('Delete this role?');">
+                <button type="submit">Delete</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6">No roles yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section style="margin-top:56px;">
+    <div class="eyebrow">POSTS</div>
+    <h2 style="margin-bottom:20px;">Manage posts</h2>
+
+    <div class="add-form">
+      <form action="{{ url_for('admin.add_post') }}" method="POST" enctype="multipart/form-data">
+        <div class="field">
+          <label>Title</label>
+          <input name="title" type="text" required>
+        </div>
+        <div class="field">
+          <label>Body</label>
+          <textarea name="body" required></textarea>
+        </div>
+        <div class="field">
+          <label>Image (optional)</label>
+          <input name="image" type="file" accept="image/*">
+        </div>
+        <div style="margin-top:14px;">
+          <button type="submit" class="btn btn-primary">Add post</button>
+        </div>
+      </form>
+    </div>
+
+    <table>
+      <thead><tr><th>Title</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        {% for p in posts %}
+        <tr>
+          <td>{{ p.title }}</td>
+          <td><span class="badge {{ 'on' if p.published else 'off' }}">{{ 'Live' if p.published else 'Hidden' }}</span></td>
+          <td>
+            <div class="row-actions">
+              <form action="{{ url_for('admin.toggle_post', post_id=p.id) }}" method="POST">
+                <button type="submit">{{ 'Hide' if p.published else 'Publish' }}</button>
+              </form>
+              <form action="{{ url_for('admin.delete_post', post_id=p.id) }}" method="POST" onsubmit="return confirm('Delete this post?');">
+                <button type="submit">Delete</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="3">No posts yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div>
+</body>
+</html>

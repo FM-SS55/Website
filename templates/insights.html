@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Insights — Anchorline Facility Management{% endblock %}
+
+{% block content %}
+
+<section class="hero" style="padding-bottom:20px;">
+  <div class="wrap">
+    <div class="eyebrow">FIG. 08 — INSIGHTS</div>
+    <h1 style="max-width:16ch;">Updates from Anchorline.</h1>
+    <p class="lead" style="margin-top:20px;">Notes on how we work, what we're seeing on-site, and company updates.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="tight">
+  <div class="wrap">
+    {% if posts %}
+    <div class="grid-3">
+      {% for p in posts %}
+      <div class="card">
+        {% if p.image_url %}
+        <img src="{{ p.image_url }}" alt="" style="margin-bottom:16px; width:100%; height:160px; object-fit:cover;">
+        {% endif %}
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.body }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p style="color:var(--slate);">No updates posted yet — check back soon.</p>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

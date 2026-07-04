@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% block title %}Anchorline Facility Management — Home{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">FIG. 01 — OVERVIEW</div>
+      <h1>The infrastructure<br>behind your infrastructure.</h1>
+      <p class="lead">Anchorline runs the systems that keep a building working — maintenance, cleaning, security and grounds — so your team can focus on what happens inside it.</p>
+      <div class="cta-row">
+        <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Get a proposal</a>
+        <a href="{{ url_for('public.careers') }}" class="btn btn-ghost">We're hiring</a>
+      </div>
+    </div>
+    <div class="crosshair">
+      <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg">
+        <rect x="40" y="40" width="340" height="340" fill="none" stroke="#D2CFC3" stroke-width="1"/>
+        <path d="M70 90 H320 V330 H180 V250 H70 Z" fill="none" stroke="#10203A" stroke-width="2"/>
+        <line x1="70" y1="250" x2="180" y2="250" stroke="#10203A" stroke-width="1.4" stroke-dasharray="4 4"/>
+        <line x1="180" y1="90" x2="180" y2="330" stroke="#10203A" stroke-width="1.4" stroke-dasharray="4 4" opacity=".5"/>
+        <line x1="70" y1="190" x2="320" y2="190" stroke="#10203A" stroke-width="1.4" stroke-dasharray="4 4" opacity=".5"/>
+
+        <circle cx="120" cy="140" r="5" fill="#F6A621"/>
+        <text x="132" y="144" font-family="IBM Plex Mono" font-size="11" fill="#55637A">01 · HVAC</text>
+
+        <circle cx="260" cy="130" r="5" fill="#F6A621"/>
+        <text x="272" y="134" font-family="IBM Plex Mono" font-size="11" fill="#55637A">02 · SECURITY</text>
+
+        <circle cx="250" cy="220" r="5" fill="#F6A621"/>
+        <text x="262" y="224" font-family="IBM Plex Mono" font-size="11" fill="#55637A">03 · CLEANING</text>
+
+        <circle cx="120" cy="290" r="5" fill="#F6A621"/>
+        <text x="132" y="294" font-family="IBM Plex Mono" font-size="11" fill="#55637A">04 · MAINTENANCE</text>
+
+        <circle cx="250" cy="300" r="5" fill="#F6A621"/>
+        <text x="262" y="304" font-family="IBM Plex Mono" font-size="11" fill="#55637A">05 · GROUNDS</text>
+
+        <path d="M40 40 h14 M40 40 v14" stroke="#55637A" stroke-width="1.5"/>
+        <path d="M380 380 h-14 M380 380 v-14" stroke="#55637A" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section id="about" class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">FIG. 02 — ABOUT</div>
+      <h2>A newly built facilities partner, run on old-fashioned reliability.</h2>
+      <p class="lead" style="margin-top:14px;">Anchorline was founded on a simple idea: a building's operations should be invisible when they're working and accountable when they're not. We're a new company, built by people who've spent years inside facility operations and got tired of watching things fall through the cracks.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <span class="num">WHO WE SERVE</span>
+        <h3>Offices &amp; corporate campuses</h3>
+        <p>Commercial buildings that need day-to-day operations handled by one accountable team.</p>
+      </div>
+      <div class="card">
+        <span class="num">WHO WE SERVE</span>
+        <h3>Retail &amp; mixed-use sites</h3>
+        <p>Multi-tenant properties where cleaning, security and repairs all need to run in sync.</p>
+      </div>
+      <div class="card">
+        <span class="num">WHO WE SERVE</span>
+        <h3>Industrial &amp; warehousing</h3>
+        <p>Sites where uptime on mechanical systems directly affects operations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tight" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">FIG. 03 — SERVICES</div>
+      <h2>What we manage</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <span class="num">01</span>
+        <h3><a href="{{ url_for('public.service_facilities_management') }}" style="color:inherit;">Facilities management</a></h3>
+        <p>Preventive maintenance, servicing and breakdown response for mechanical systems.</p>
+      </div>
+      <div class="card">
+        <span class="num">02</span>
+        <h3><a href="{{ url_for('public.service_property_management') }}" style="color:inherit;">Property management</a></h3>
+        <p>A single point of contact for the day-to-day running of your building.</p>
+      </div>
+      <div class="card">
+        <span class="num">03</span>
+        <h3><a href="{{ url_for('public.service_maintenance_repairs') }}" style="color:inherit;">Maintenance &amp; repairs</a></h3>
+        <p>Electrical, plumbing and general repair work, tracked to completion.</p>
+      </div>
+    </div>
+    <p style="margin-top:20px;"><a href="{{ url_for('public.services_index') }}" style="text-decoration:underline; font-size:14.5px;">See all services →</a></p>
+  </div>
+</section>
+
+<section class="band-dark">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">FIG. 04 — APPROACH</div>
+      <h2>How we work</h2>
+    </div>
+    <div>
+      <div class="approach-item" style="border-color:rgba(255,255,255,.15);">
+        <span class="idx">01</span>
+        <div>
+          <h3 style="color:var(--paper)">One point of contact</h3>
+          <p>You get a single site manager who's accountable for every vendor and every ticket — not a directory of subcontractors to chase.</p>
+        </div>
+      </div>
+      <div class="approach-item" style="border-color:rgba(255,255,255,.15);">
+        <span class="idx">02</span>
+        <div>
+          <h3 style="color:var(--paper)">Scoped before we start</h3>
+          <p>Every engagement begins with a walkthrough and a written scope, so there's no ambiguity about what's covered.</p>
+        </div>
+      </div>
+      <div class="approach-item" style="border-color:rgba(255,255,255,.15);">
+        <span class="idx">03</span>
+        <div>
+          <h3 style="color:var(--paper)">Logged, not verbal</h3>
+          <p>Every request and repair is logged and shared back with you, so nothing depends on memory.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tight" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">FIG. 05 — NEWS</div>
+      <h2>Latest updates</h2>
+    </div>
+    <div id="posts-list" class="grid-3">
+      <p style="padding:24px; color:var(--slate);">Loading updates…</p>
+    </div>
+    <p style="margin-top:20px;"><a href="{{ url_for('public.insights') }}" style="text-decoration:underline; font-size:14.5px;">See all insights →</a></p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap" style="text-align:center;">
+    <h2>Let's talk about your site.</h2>
+    <p class="lead" style="margin:14px auto 28px;">Tell us about your building and what's currently not working — we'll come back with a straightforward proposal.</p>
+    <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Contact us</a>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  fetch('/api/posts')
+    .then(res => res.json())
+    .then(posts => {
+      const container = document.getElementById('posts-list');
+      if (!posts.length) {
+        container.outerHTML = '<p style="color:var(--slate);">No updates posted yet.</p>';
+        return;
+      }
+      container.innerHTML = posts.slice(0, 3).map(p => `
+        <div class="card">
+          ${p.image_url ? `<img src="${p.image_url}" alt="" style="margin-bottom:16px; width:100%; height:150px; object-fit:cover;">` : ''}
+          <h3>${escapeHtml(p.title)}</h3>
+          <p>${escapeHtml(p.body)}</p>
+        </div>
+      `).join('');
+    })
+    .catch(() => {
+      const el = document.getElementById('posts-list');
+      if (el) el.outerHTML = '<p style="color:var(--slate);">Couldn\'t load updates right now.</p>';
+    });
+</script>
+{% endblock %}

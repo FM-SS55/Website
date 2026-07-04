@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Offices & Corporate Campuses — Anchorline{% endblock %}
+
+{% block content %}
+
+<section class="hero" style="padding-bottom:20px;">
+  <div class="wrap">
+    <div class="eyebrow">SECTOR — OFFICES &amp; CORPORATE CAMPUSES</div>
+    <h1 style="max-width:18ch;">Operations that stay invisible while your team works.</h1>
+    <p class="lead" style="margin-top:20px;">Offices run on predictability — consistent cleaning, working HVAC, and access control that doesn't get in anyone's way.</p>
+    <div class="cta-row">
+      <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Get a proposal</a>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">TYPICAL SCOPE</div>
+      <h2>What we usually run for offices</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <span class="num">01</span>
+        <h3>Daily housekeeping</h3>
+        <p>Cleaning scheduled around working hours, so it never disrupts the workday.</p>
+      </div>
+      <div class="card">
+        <span class="num">02</span>
+        <h3>HVAC &amp; climate control</h3>
+        <p>Preventive servicing to keep temperature and air quality consistent year-round.</p>
+      </div>
+      <div class="card">
+        <span class="num">03</span>
+        <h3>Access &amp; front-desk security</h3>
+        <p>Visitor management and access control that fits how a corporate floor actually operates.</p>
+      </div>
+      <div class="card">
+        <span class="num">04</span>
+        <h3>Meeting room &amp; facility upkeep</h3>
+        <p>Fast turnaround on fixture repairs and general wear and tear in shared spaces.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tight" style="padding-top:0; text-align:center;">
+  <div class="wrap">
+    <h2>Managing an office or campus?</h2>
+    <p class="lead" style="margin:14px auto 28px;">We'll walk the space and scope a plan around your working hours.</p>
+    <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Contact us</a>
+    <p style="margin-top:24px;"><a href="{{ url_for('public.sectors_index') }}" style="text-decoration:underline; font-size:14px;">← Back to all sectors</a></p>
+  </div>
+</section>
+
+{% endblock %}

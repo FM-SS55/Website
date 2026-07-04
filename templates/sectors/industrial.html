@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Industrial & Warehousing — Anchorline{% endblock %}
+
+{% block content %}
+
+<section class="hero" style="padding-bottom:20px;">
+  <div class="wrap">
+    <div class="eyebrow">SECTOR — INDUSTRIAL &amp; WAREHOUSING</div>
+    <h1 style="max-width:18ch;">Where mechanical uptime directly affects operations.</h1>
+    <p class="lead" style="margin-top:20px;">Industrial sites can't absorb unplanned downtime the way an office can — maintenance has to be scheduled, not reactive.</p>
+    <div class="cta-row">
+      <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Get a proposal</a>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">TYPICAL SCOPE</div>
+      <h2>What we usually run for industrial sites</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <span class="num">01</span>
+        <h3>Mechanical &amp; electrical uptime</h3>
+        <p>Scheduled servicing of critical plant equipment to minimize unplanned downtime.</p>
+      </div>
+      <div class="card">
+        <span class="num">02</span>
+        <h3>Safety &amp; compliance checks</h3>
+        <p>Routine inspections against fire, electrical and equipment safety requirements for industrial sites.</p>
+      </div>
+      <div class="card">
+        <span class="num">03</span>
+        <h3>Site security</h3>
+        <p>Access control and perimeter monitoring for warehousing and industrial facilities.</p>
+      </div>
+      <div class="card">
+        <span class="num">04</span>
+        <h3>Facility upkeep</h3>
+        <p>General repairs and housekeeping for operational and administrative areas on-site.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tight" style="padding-top:0; text-align:center;">
+  <div class="wrap">
+    <h2>Running an industrial or warehouse site?</h2>
+    <p class="lead" style="margin:14px auto 28px;">We'll scope a maintenance plan built around your uptime requirements.</p>
+    <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Contact us</a>
+    <p style="margin-top:24px;"><a href="{{ url_for('public.sectors_index') }}" style="text-decoration:underline; font-size:14px;">← Back to all sectors</a></p>
+  </div>
+</section>
+
+{% endblock %}

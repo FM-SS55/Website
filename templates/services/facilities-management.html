@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Facilities Management — Anchorline{% endblock %}
+
+{% block content %}
+
+<section class="hero" style="padding-bottom:20px;">
+  <div class="wrap">
+    <div class="eyebrow">SERVICE 01 — FACILITIES MANAGEMENT</div>
+    <h1 style="max-width:18ch;">Keeping the mechanical systems running before they fail.</h1>
+    <p class="lead" style="margin-top:20px;">Preventive maintenance, servicing schedules and breakdown response for the systems a building depends on — HVAC, electrical, and mechanical plant.</p>
+    <div class="cta-row">
+      <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Get a proposal</a>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">WHAT'S INCLUDED</div>
+      <h2>Scope of work</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <span class="num">01</span>
+        <h3>Preventive maintenance</h3>
+        <p>Scheduled servicing of HVAC, electrical and mechanical systems, so small issues get caught before they become breakdowns.</p>
+      </div>
+      <div class="card">
+        <span class="num">02</span>
+        <h3>Breakdown response</h3>
+        <p>A defined response window when something fails, with the issue logged and tracked until it's resolved.</p>
+      </div>
+      <div class="card">
+        <span class="num">03</span>
+        <h3>Energy &amp; utilities monitoring</h3>
+        <p>Tracking consumption and coordinating utility vendors to keep costs predictable.</p>
+      </div>
+      <div class="card">
+        <span class="num">04</span>
+        <h3>Compliance &amp; safety checks</h3>
+        <p>Routine inspections against fire, electrical and equipment safety requirements.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band-dark">
+  <div class="wrap">
+    <div class="eyebrow">WHY IT MATTERS</div>
+    <h2 style="max-width:28ch;">A building's mechanical systems don't announce they're about to fail.</h2>
+    <p style="margin-top:16px; max-width:60ch;">Preventive maintenance costs less than emergency repairs, and far less than the downtime a failure causes. Our approach is scheduled, not reactive — every system on a defined servicing cycle.</p>
+  </div>
+</section>
+
+<section class="tight" style="text-align:center;">
+  <div class="wrap">
+    <h2>Ready to scope your building?</h2>
+    <p class="lead" style="margin:14px auto 28px;">We'll walk the site and come back with a written maintenance plan.</p>
+    <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Contact us</a>
+    <p style="margin-top:24px;"><a href="{{ url_for('public.services_index') }}" style="text-decoration:underline; font-size:14px;">← Back to all services</a></p>
+  </div>
+</section>
+
+{% endblock %}
