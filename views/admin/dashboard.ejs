@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> — Pulizia FM Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+  <div class="admin-shell">
+    <%- include('../partials/admin-sidebar') %>
+
+    <main class="admin-main">
+      <div class="admin-topline">
+        <h1 class="admin-title">Dashboard</h1>
+        <a href="/" target="_blank" class="admin-view-site">View Live Site ↗</a>
+      </div>
+
+      <div class="admin-stats">
+        <div class="admin-stat-card"><strong><%= counts.banners %></strong><span>Banners</span></div>
+        <div class="admin-stat-card"><strong><%= counts.services %></strong><span>Services</span></div>
+        <div class="admin-stat-card"><strong><%= counts.clients %></strong><span>Clients</span></div>
+        <div class="admin-stat-card"><strong><%= counts.posts %></strong><span>Blog Posts</span></div>
+      </div>
+
+      <div class="admin-panel">
+        <h2>Recent Contact Messages</h2>
+        <% if (recentMessages && recentMessages.length > 0) { %>
+          <table class="admin-table">
+            <thead>
+              <tr><th>Name</th><th>Email</th><th>Message</th><th>Received</th></tr>
+            </thead>
+            <tbody>
+              <% recentMessages.forEach(msg => { %>
+                <tr>
+                  <td><%= msg.name %></td>
+                  <td><%= msg.email %></td>
+                  <td><%= msg.message.length > 60 ? msg.message.slice(0, 60) + '…' : msg.message %></td>
+                  <td><%= new Date(msg.created_at).toLocaleString() %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+          <div style="margin-top: 16px;"><a href="/admin/messages" class="btn-admin btn-admin-ghost">View All Messages</a></div>
+        <% } else { %>
+          <p style="color: var(--muted); font-size: 14px;">No messages yet.</p>
+        <% } %>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

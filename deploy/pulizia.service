@@ -1,0 +1,36 @@
+# deploy/pulizia.service
+#
+# systemd unit that keeps the Node app running: auto-starts on server boot,
+# auto-restarts if it crashes.
+#
+# SETUP (one-time, on the Lightsail server):
+#   1. sudo cp deploy/pulizia.service /etc/systemd/system/pulizia.service
+#   2. sudo systemctl daemon-reload
+#   3. sudo systemctl enable pulizia    # starts automatically on server reboot
+#   4. sudo systemctl start pulizia
+#   5. sudo systemctl status pulizia    # verify it's running
+#
+# Useful commands:
+#   sudo systemctl restart pulizia      # used by CI/CD after every deploy
+#   sudo journalctl -u pulizia -f       # live logs
+
+[Unit]
+Description=Pulizia FM Services Node App
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/var/www/pulizia-fm
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5
+Environment=NODE_ENV=production
+EnvironmentFile=/var/www/pulizia-fm/.env
+
+# Basic hardening
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

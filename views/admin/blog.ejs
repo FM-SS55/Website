@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> — Pulizia FM Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+  <div class="admin-shell">
+    <%- include('../partials/admin-sidebar') %>
+
+    <main class="admin-main">
+      <div class="admin-topline">
+        <h1 class="admin-title">Blog Posts</h1>
+        <a href="/" target="_blank" class="admin-view-site">View Live Site ↗</a>
+      </div>
+
+      <!-- ---- Add / Edit form ---- -->
+      <div class="admin-panel">
+        <h2><%= editing ? 'Edit Post' : 'Add New Post' %></h2>
+        <form
+          class="admin-form"
+          action="<%= editing ? '/admin/blog/' + editing.id : '/admin/blog' %>"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <% if (editing) { %><input type="hidden" name="_method" value="PUT"><% } %>
+
+          <div class="admin-form-row">
+            <div>
+              <label for="title">Title</label>
+              <input type="text" id="title" name="title" value="<%= editing ? editing.title : '' %>" required>
+            </div>
+            <div>
+              <label for="slug">URL Slug</label>
+              <input type="text" id="slug" name="slug" value="<%= editing ? editing.slug : '' %>" placeholder="e.g. kpis-in-facility-management" required>
+            </div>
+          </div>
+
+          <div>
+            <label for="excerpt">Excerpt (shown on the blog listing card)</label>
+            <textarea id="excerpt" name="excerpt" rows="2"><%= editing && editing.excerpt ? editing.excerpt : '' %></textarea>
+          </div>
+
+          <div>
+            <label for="body">Full Post Body</label>
+            <textarea id="body" name="body" rows="10"><%= editing && editing.body ? editing.body : '' %></textarea>
+          </div>
+
+          <% if (editing && editing.image_url) { %>
+            <div class="current-image">
+              <img src="<%= editing.image_url %>" alt="Current post image">
+              <span style="font-size: 13px; color: var(--muted);">Current image — upload a new one below to replace it.</span>
+            </div>
+            <input type="hidden" name="image_url_existing" value="<%= editing.image_url %>">
+          <% } %>
+          <div>
+            <label for="image">Featured Image (optional)</label>
+            <input type="file" id="image" name="image" accept="image/*">
+          </div>
+
+          <div class="admin-form-row">
+            <div>
+              <label for="published_at">Published Date</label>
+              <input type="date" id="published_at" name="published_at"
+                value="<%= editing && editing.published_at ? new Date(editing.published_at).toISOString().slice(0,10) : new Date().toISOString().slice(0,10) %>">
+            </div>
+            <div style="align-self:end;">
+              <label class="admin-checkbox">
+                <input type="checkbox" name="is_published" <%= (!editing || editing.is_published) ? 'checked' : '' %>>
+                Published (visible on site)
+              </label>
+            </div>
+          </div>
+
+          <div class="admin-form-actions">
+            <button type="submit" class="btn-admin btn-admin-primary"><%= editing ? 'Save Changes' : 'Add Post' %></button>
+            <% if (editing) { %>
+              <a href="/admin/blog" class="btn-admin btn-admin-ghost">Cancel</a>
+            <% } %>
+          </div>
+        </form>
+      </div>
+
+      <!-- ---- List ---- -->
+      <div class="admin-panel">
+        <h2>All Posts</h2>
+        <% if (posts && posts.length > 0) { %>
+          <table class="admin-table">
+            <thead>
+              <tr><th>Title</th><th>Published</th><th>Status</th><th></th></tr>
+            </thead>
+            <tbody>
+              <% posts.forEach(p => { %>
+                <tr>
+                  <td><%= p.title %></td>
+                  <td><%= new Date(p.published_at).toDateString() %></td>
+                  <td><span class="badge <%= p.is_published ? 'badge--on' : 'badge--off' %>"><%= p.is_published ? 'Published' : 'Draft' %></span></td>
+                  <td>
+                    <div class="row-actions">
+                      <a href="/blog/<%= p.slug %>" target="_blank">View</a>
+                      <a href="/admin/blog/<%= p.id %>/edit">Edit</a>
+                      <form action="/admin/blog/<%= p.id %>" method="POST" onsubmit="return confirm('Delete this post?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="danger">Delete</button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } else { %>
+          <p style="color: var(--muted); font-size: 14px;">No posts yet — add one above.</p>
+        <% } %>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

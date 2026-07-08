@@ -1,0 +1,20 @@
+<!-- views/partials/admin-sidebar.ejs
+     Reused across every admin screen. Expects `currentPath` (from res.locals)
+     to highlight the active section. -->
+<aside class="admin-sidebar">
+  <div class="admin-sidebar__brand">Pulizia<em>FM</em></div>
+  <nav class="admin-nav">
+    <a href="/admin/dashboard" class="<%= currentPath === '/admin/dashboard' ? 'is-active' : '' %>">Dashboard</a>
+    <a href="/admin/banners" class="<%= currentPath.startsWith('/admin/banners') ? 'is-active' : '' %>">Banners</a>
+    <a href="/admin/services" class="<%= currentPath.startsWith('/admin/services') ? 'is-active' : '' %>">Services</a>
+    <a href="/admin/clients" class="<%= currentPath.startsWith('/admin/clients') ? 'is-active' : '' %>">Clients</a>
+    <a href="/admin/blog" class="<%= currentPath.startsWith('/admin/blog') ? 'is-active' : '' %>">Blog Posts</a>
+    <a href="/admin/messages" class="<%= currentPath.startsWith('/admin/messages') ? 'is-active' : '' %>">Messages</a>
+  </nav>
+  <div class="admin-sidebar__footer">
+    <a href="/" target="_blank">View Live Site ↗</a>
+    <form action="/admin/logout" method="POST">
+      <button type="submit">Log Out</button>
+    </form>
+  </div>
+</aside>

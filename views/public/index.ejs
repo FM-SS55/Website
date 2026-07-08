@@ -1,0 +1,166 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <% if (banners && banners.length > 0) { %>
+    <% banners.forEach((banner, i) => { %>
+      <div class="hero__slide <%= i === 0 ? 'is-active' : '' %>">
+        <div class="hero__inner">
+          <div>
+            <div class="hero__eyebrow">Integrated Facility Management</div>
+            <h1 class="hero__title"><%= banner.title %></h1>
+            <p class="hero__subtitle"><%= banner.subtitle %></p>
+            <div class="hero__actions">
+              <a href="/contact" class="btn btn-primary">Request a Quote</a>
+              <a href="/services" class="btn btn-outline">Explore Services</a>
+            </div>
+            <div class="hero__stats">
+              <div class="hero__stat"><strong>1,200+</strong><span>Trained Staff</span></div>
+              <div class="hero__stat"><strong>9+</strong><span>Years of Operation</span></div>
+              <div class="hero__stat"><strong>ISO</strong><span>9001:2015 Certified</span></div>
+            </div>
+          </div>
+          <div class="ticket-stack">
+            <div class="mini-ticket">
+              <div class="mini-ticket__head"><span>WO #2216</span><span class="mini-ticket__status">Completed</span></div>
+              <div>Mechanized Housekeeping — Tower B, 4th Floor</div>
+            </div>
+            <div class="mini-ticket">
+              <div class="mini-ticket__head"><span>WO #2217</span><span class="mini-ticket__status">In Progress</span></div>
+              <div>Landscaping — Central Courtyard</div>
+            </div>
+            <div class="mini-ticket">
+              <div class="mini-ticket__head"><span>WO #2218</span><span class="mini-ticket__status">Scheduled</span></div>
+              <div>Pest Control — Kitchen Block</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <div class="hero__slide is-active">
+      <div class="hero__inner">
+        <div>
+          <div class="hero__eyebrow">Integrated Facility Management</div>
+          <h1 class="hero__title">Facility Management You Can Rely On</h1>
+          <p class="hero__subtitle">Housekeeping, security, landscaping and more — one accountable team.</p>
+          <div class="hero__actions">
+            <a href="/contact" class="btn btn-primary">Request a Quote</a>
+            <a href="/services" class="btn btn-outline">Explore Services</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% } %>
+  <div class="hero__nav-dots" id="heroDots"></div>
+</section>
+
+<!-- ================= ABOUT SNIPPET ================= -->
+<section class="section">
+  <div class="container about-split">
+    <div class="about-split__visual">
+      <div class="stat-block"><strong>2016</strong><span>FOUNDED</span></div>
+      <div class="stat-block"><strong>1,200+</strong><span>STAFF STRENGTH</span></div>
+      <div class="stat-block"><strong>9</strong><span>CORE SERVICES</span></div>
+      <div class="stat-block"><strong>ISO</strong><span>9001:2015</span></div>
+    </div>
+    <div class="about-split__text">
+      <div class="section-eyebrow">Who We Are</div>
+      <h2 class="section-title">A single accountable partner for every facility need</h2>
+      <p>Pulizia FM Services brings housekeeping, security, landscaping, technical maintenance, and hospitality support under one roof, so facility managers deal with one team instead of a dozen vendors.</p>
+      <p>Every team member is trained, uniformed, and supervised against documented service standards — the same discipline reflected in our ISO 9001:2015 certification.</p>
+      <ul class="checklist">
+        <li>Dedicated site supervisors and quality audits</li>
+        <li>Scalable staffing for commercial, healthcare, and residential sites</li>
+        <li>Transparent reporting and rapid response times</li>
+      </ul>
+      <div style="margin-top: 26px;">
+        <a href="/about" class="btn btn-dark">More About Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">What We Do</div>
+      <h2 class="section-title">Facility Management Services</h2>
+      <p class="section-desc">Each service is run like a dispatched work order — scheduled, tracked, and signed off, not just "done."</p>
+    </div>
+    <div class="services-grid">
+      <% services.forEach(service => { %>
+        <div class="ticket-card">
+          <div class="ticket-card__top">
+            <div class="ticket-card__icon">●</div>
+            <h3 class="ticket-card__title"><%= service.title %></h3>
+            <p class="ticket-card__desc"><%= service.short_description %></p>
+          </div>
+          <div class="ticket-card__perforation"></div>
+          <div class="ticket-card__bottom">
+            <span class="ticket-card__tag">Service</span>
+            <a href="/services/<%= service.slug %>" class="ticket-card__link">View Details →</a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CLIENTS ================= -->
+<% if (clients && clients.length > 0) { %>
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">Trusted By</div>
+      <h2 class="section-title">Our Valued Clients</h2>
+    </div>
+    <div class="clients-strip">
+      <% clients.forEach(client => { %>
+        <span class="client-chip"><%= client.name %></span>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- ================= BLOG PREVIEW ================= -->
+<% if (latestPosts && latestPosts.length > 0) { %>
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">From the Blog</div>
+      <h2 class="section-title">Insights on Facility Management</h2>
+    </div>
+    <div class="blog-grid">
+      <% latestPosts.forEach(post => { %>
+        <a href="/blog/<%= post.slug %>" class="blog-card">
+          <div class="blog-card__img"></div>
+          <div class="blog-card__body">
+            <div class="blog-card__date"><%= new Date(post.published_at).toDateString() %></div>
+            <h3 class="blog-card__title"><%= post.title %></h3>
+            <p class="blog-card__excerpt"><%= post.excerpt %></p>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- ================= CTA BANNER ================= -->
+<section class="section">
+  <div class="container">
+    <div class="cta-banner">
+      <div>
+        <h3>Need a facility management partner?</h3>
+        <p>Tell us about your site and we'll put together a scoped proposal.</p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Request a Quote</a>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

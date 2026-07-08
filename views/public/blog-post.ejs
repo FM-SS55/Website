@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="/" style="color:inherit;">Home</a> / <a href="/blog" style="color:inherit;">Blog</a> / <%= post.title %></div>
+    <h1><%= post.title %></h1>
+    <p style="font-family: var(--font-mono); font-size: 13px; opacity: 0.85; margin-top: 10px;">
+      <%= new Date(post.published_at).toDateString() %>
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width: 780px;">
+    <% if (post.image_url) { %>
+      <img src="<%= post.image_url %>" alt="<%= post.title %>" style="border-radius: 10px; margin-bottom: 34px; width:100%;">
+    <% } %>
+    <div style="font-size: 16px; color: var(--ink); white-space: pre-line;"><%= post.body %></div>
+
+    <div style="margin-top: 46px; padding-top: 26px; border-top: 1px solid var(--line);">
+      <a href="/blog" class="btn btn-outline" style="color: var(--ink); border-color: var(--ink);">← Back to Blog</a>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

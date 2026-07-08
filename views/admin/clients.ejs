@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> — Pulizia FM Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+  <div class="admin-shell">
+    <%- include('../partials/admin-sidebar') %>
+
+    <main class="admin-main">
+      <div class="admin-topline">
+        <h1 class="admin-title">Clients</h1>
+        <a href="/" target="_blank" class="admin-view-site">View Live Site ↗</a>
+      </div>
+
+      <!-- ---- Add / Edit form ---- -->
+      <div class="admin-panel">
+        <h2><%= editing ? 'Edit Client' : 'Add New Client' %></h2>
+        <form
+          class="admin-form"
+          action="<%= editing ? '/admin/clients/' + editing.id : '/admin/clients' %>"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <% if (editing) { %><input type="hidden" name="_method" value="PUT"><% } %>
+
+          <div>
+            <label for="name">Client Name</label>
+            <input type="text" id="name" name="name" value="<%= editing ? editing.name : '' %>" required>
+          </div>
+
+          <% if (editing && editing.logo_url) { %>
+            <div class="current-image">
+              <img src="<%= editing.logo_url %>" alt="Current client logo">
+              <span style="font-size: 13px; color: var(--muted);">Current logo — upload a new one below to replace it.</span>
+            </div>
+            <input type="hidden" name="logo_url_existing" value="<%= editing.logo_url %>">
+          <% } %>
+          <div>
+            <label for="logo">Logo (optional — clients currently display as text chips on the live site)</label>
+            <input type="file" id="logo" name="logo" accept="image/*">
+          </div>
+
+          <div class="admin-form-row">
+            <div>
+              <label for="sort_order">Sort Order</label>
+              <input type="number" id="sort_order" name="sort_order" value="<%= editing ? editing.sort_order : 0 %>">
+            </div>
+            <div style="align-self:end;">
+              <label class="admin-checkbox">
+                <input type="checkbox" name="is_active" <%= (!editing || editing.is_active) ? 'checked' : '' %>>
+                Active (visible on site)
+              </label>
+            </div>
+          </div>
+
+          <div class="admin-form-actions">
+            <button type="submit" class="btn-admin btn-admin-primary"><%= editing ? 'Save Changes' : 'Add Client' %></button>
+            <% if (editing) { %>
+              <a href="/admin/clients" class="btn-admin btn-admin-ghost">Cancel</a>
+            <% } %>
+          </div>
+        </form>
+      </div>
+
+      <!-- ---- List ---- -->
+      <div class="admin-panel">
+        <h2>All Clients</h2>
+        <% if (clients && clients.length > 0) { %>
+          <table class="admin-table">
+            <thead>
+              <tr><th>Name</th><th>Order</th><th>Status</th><th></th></tr>
+            </thead>
+            <tbody>
+              <% clients.forEach(c => { %>
+                <tr>
+                  <td><%= c.name %></td>
+                  <td><%= c.sort_order %></td>
+                  <td><span class="badge <%= c.is_active ? 'badge--on' : 'badge--off' %>"><%= c.is_active ? 'Active' : 'Inactive' %></span></td>
+                  <td>
+                    <div class="row-actions">
+                      <a href="/admin/clients/<%= c.id %>/edit">Edit</a>
+                      <form action="/admin/clients/<%= c.id %>" method="POST" onsubmit="return confirm('Delete this client?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="danger">Delete</button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } else { %>
+          <p style="color: var(--muted); font-size: 14px;">No clients yet — add one above.</p>
+        <% } %>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

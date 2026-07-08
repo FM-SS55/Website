@@ -1,0 +1,54 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="/" style="color:inherit;">Home</a> / Services</div>
+    <h1>Facility Management Services</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">Full Service Line-Up</div>
+      <h2 class="section-title">Everything your site needs, dispatched like a work order</h2>
+      <p class="section-desc">Each line of service below can be engaged individually or bundled into a single integrated contract.</p>
+    </div>
+
+    <% if (services && services.length > 0) { %>
+      <div class="services-grid">
+        <% services.forEach(service => { %>
+          <div class="ticket-card">
+            <div class="ticket-card__top">
+              <div class="ticket-card__icon">●</div>
+              <h3 class="ticket-card__title"><%= service.title %></h3>
+              <p class="ticket-card__desc"><%= service.short_description %></p>
+            </div>
+            <div class="ticket-card__perforation"></div>
+            <div class="ticket-card__bottom">
+              <span class="ticket-card__tag">Service</span>
+              <a href="/services/<%= service.slug %>" class="ticket-card__link">View Details →</a>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p class="section-desc">Services will be listed here shortly.</p>
+    <% } %>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="cta-banner">
+      <div>
+        <h3>Not sure which services you need?</h3>
+        <p>Send us your site details and we'll recommend a scope.</p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Talk to Us</a>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

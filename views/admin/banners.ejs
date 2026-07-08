@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> — Pulizia FM Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+  <div class="admin-shell">
+    <%- include('../partials/admin-sidebar') %>
+
+    <main class="admin-main">
+      <div class="admin-topline">
+        <h1 class="admin-title">Banners</h1>
+        <a href="/" target="_blank" class="admin-view-site">View Live Site ↗</a>
+      </div>
+
+      <!-- ---- Add / Edit form ---- -->
+      <div class="admin-panel">
+        <h2><%= editing ? 'Edit Banner' : 'Add New Banner' %></h2>
+        <form
+          class="admin-form"
+          action="<%= editing ? '/admin/banners/' + editing.id : '/admin/banners' %>"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <% if (editing) { %><input type="hidden" name="_method" value="PUT"><% } %>
+          <div class="admin-form-row">
+            <div>
+              <label for="title">Title</label>
+              <input type="text" id="title" name="title" value="<%= editing ? editing.title : '' %>" required>
+            </div>
+            <div>
+              <label for="link_url">Link URL (optional)</label>
+              <input type="text" id="link_url" name="link_url" value="<%= editing && editing.link_url ? editing.link_url : '' %>" placeholder="/contact">
+            </div>
+          </div>
+
+          <div>
+            <label for="subtitle">Subtitle</label>
+            <textarea id="subtitle" name="subtitle" rows="2"><%= editing && editing.subtitle ? editing.subtitle : '' %></textarea>
+          </div>
+
+          <% if (editing && editing.image_url) { %>
+            <div class="current-image">
+              <img src="<%= editing.image_url %>" alt="Current banner image">
+              <span style="font-size: 13px; color: var(--muted);">Current image — upload a new one below to replace it.</span>
+            </div>
+            <input type="hidden" name="image_url_existing" value="<%= editing.image_url %>">
+          <% } %>
+          <div>
+            <label for="image">Banner Image</label>
+            <input type="file" id="image" name="image" accept="image/*">
+          </div>
+
+          <div class="admin-form-row">
+            <div>
+              <label for="sort_order">Sort Order</label>
+              <input type="number" id="sort_order" name="sort_order" value="<%= editing ? editing.sort_order : 0 %>">
+            </div>
+            <div style="align-self:end;">
+              <label class="admin-checkbox">
+                <input type="checkbox" name="is_active" <%= (!editing || editing.is_active) ? 'checked' : '' %>>
+                Active (visible on homepage)
+              </label>
+            </div>
+          </div>
+
+          <div class="admin-form-actions">
+            <button type="submit" class="btn-admin btn-admin-primary"><%= editing ? 'Save Changes' : 'Add Banner' %></button>
+            <% if (editing) { %>
+              <a href="/admin/banners" class="btn-admin btn-admin-ghost">Cancel</a>
+            <% } %>
+          </div>
+        </form>
+      </div>
+
+      <!-- ---- List ---- -->
+      <div class="admin-panel">
+        <h2>All Banners</h2>
+        <% if (banners && banners.length > 0) { %>
+          <table class="admin-table">
+            <thead>
+              <tr><th></th><th>Title</th><th>Order</th><th>Status</th><th></th></tr>
+            </thead>
+            <tbody>
+              <% banners.forEach(b => { %>
+                <tr>
+                  <td><img class="admin-thumb" src="<%= b.image_url %>" alt=""></td>
+                  <td><%= b.title %></td>
+                  <td><%= b.sort_order %></td>
+                  <td><span class="badge <%= b.is_active ? 'badge--on' : 'badge--off' %>"><%= b.is_active ? 'Active' : 'Inactive' %></span></td>
+                  <td>
+                    <div class="row-actions">
+                      <a href="/admin/banners/<%= b.id %>/edit">Edit</a>
+                      <form action="/admin/banners/<%= b.id %>" method="POST" onsubmit="return confirm('Delete this banner?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="danger">Delete</button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } else { %>
+          <p style="color: var(--muted); font-size: 14px;">No banners yet — add one above.</p>
+        <% } %>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

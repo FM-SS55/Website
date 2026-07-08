@@ -1,0 +1,48 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="/" style="color:inherit;">Home</a> / <a href="/services" style="color:inherit;">Services</a> / <%= service.title %></div>
+    <h1><%= service.title %></h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container about-split">
+    <div class="about-split__text">
+      <div class="section-eyebrow">Service Overview</div>
+      <h2 class="section-title"><%= service.short_description %></h2>
+      <p><%= service.full_description %></p>
+      <ul class="checklist">
+        <li>Dedicated trained personnel assigned to your site</li>
+        <li>Documented scope of work and service schedule</li>
+        <li>Ongoing quality checks and supervisor oversight</li>
+      </ul>
+      <div style="margin-top: 26px; display:flex; gap: 14px;">
+        <a href="/contact" class="btn btn-dark">Request a Quote</a>
+        <a href="/services" class="btn btn-outline" style="color: var(--ink); border-color: var(--ink);">All Services</a>
+      </div>
+    </div>
+    <div class="about-split__visual">
+      <div class="stat-block"><strong>ISO</strong><span>9001:2015</span></div>
+      <div class="stat-block"><strong>1,200+</strong><span>Trained Staff</span></div>
+      <div class="stat-block"><strong>24/7</strong><span>Support Available</span></div>
+      <div class="stat-block"><strong>NCR</strong><span>Service Coverage</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="cta-banner">
+      <div>
+        <h3>Ready to get started with <%= service.title %>?</h3>
+        <p>Tell us about your site and timeline — we'll respond with a proposal.</p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

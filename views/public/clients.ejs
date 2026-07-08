@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="/" style="color:inherit;">Home</a> / Our Valued Clients</div>
+    <h1>Our Valued Clients</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">Trusted By</div>
+      <h2 class="section-title">Organizations we support across sectors</h2>
+      <p class="section-desc">From corporate campuses to hospitals and educational institutions, our clients span every sector we serve.</p>
+    </div>
+
+    <% if (clients && clients.length > 0) { %>
+      <div class="clients-strip">
+        <% clients.forEach(client => { %>
+          <span class="client-chip"><%= client.name %></span>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p class="section-desc">Client list coming soon.</p>
+    <% } %>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="cta-banner">
+      <div>
+        <h3>Join our client roster</h3>
+        <p>Let's discuss a facility management plan for your site.</p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

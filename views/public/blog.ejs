@@ -1,0 +1,36 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="/" style="color:inherit;">Home</a> / Blog</div>
+    <h1>Insights on Facility Management</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <% if (posts && posts.length > 0) { %>
+      <div class="blog-grid">
+        <% posts.forEach(post => { %>
+          <a href="/blog/<%= post.slug %>" class="blog-card">
+            <% if (post.image_url) { %>
+              <div class="blog-card__img" style="background-image:url('<%= post.image_url %>'); background-size:cover; background-position:center;"></div>
+            <% } else { %>
+              <div class="blog-card__img"></div>
+            <% } %>
+            <div class="blog-card__body">
+              <div class="blog-card__date"><%= new Date(post.published_at).toDateString() %></div>
+              <h3 class="blog-card__title"><%= post.title %></h3>
+              <p class="blog-card__excerpt"><%= post.excerpt %></p>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p class="section-desc">No blog posts published yet — check back soon.</p>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>
