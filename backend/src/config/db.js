@@ -6,7 +6,7 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '..', '..', '.env') });
 
-const DB_PATH = process.env.DB_PATH || path.join(__dirname, '..', '..', 'database', 'pulizia.sqlite');
+const DB_PATH = process.env.DB_PATH || path.join(__dirname, '..', '..', 'database', 'mandafia.sqlite');
 
 require('fs').mkdirSync(path.dirname(DB_PATH), { recursive: true });
 

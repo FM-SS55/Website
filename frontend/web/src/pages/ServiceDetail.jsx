@@ -35,7 +35,7 @@ export default function ServiceDetail() {
               <Link to="/services" className="btn btn-outline" style={{ color: 'var(--ink)', borderColor: 'var(--ink)' }}>All Services</Link>
             </div>
           </div>
-          <StatBlocks items={[['ISO', '9001:2015'], ['1,200+', 'Trained Staff'], ['24/7', 'Support Available'], ['NCR', 'Service Coverage']]} />
+          <StatBlocks items={[['1', 'POINT OF CONTACT'], ['Trained', 'STAFF'], ['Written', 'SCOPE OF WORK'], ['Site', 'SUPERVISION']]} />
         </div>
       </section>
       <CtaBanner alt title={`Ready to get started with ${service.title}?`} text="Tell us about your site and timeline — we'll respond with a proposal." button="Contact Us" />

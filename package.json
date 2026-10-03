@@ -1,8 +1,8 @@
 {
-  "name": "pulizia-fm",
+  "name": "mandafia-services",
   "version": "2.0.0",
   "private": true,
-  "description": "Pulizia FM Services \u2014 website, admin panel and API",
+  "description": "Mandafia Services \u2014 website, admin panel and API",
   "workspaces": [
     "backend",
     "frontend/web",
@@ -17,7 +17,7 @@
     "migrate": "npm run migrate -w backend",
     "start": "npm run start -w backend",
     "test": "npm test -w backend",
-    "package:cpanel": "node devops/scripts/package-cpanel.js"
+    "package:cpanel": "node scripts/package-cpanel.js"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

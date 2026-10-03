@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 const fallback = [{ id: 'fallback', title: 'Facility Management You Can Rely On', subtitle: 'Housekeeping, security, landscaping and more — one accountable team.' }];
 const tickets = [
-  ['WO #2216', 'Completed', 'Mechanized Housekeeping — Tower B, 4th Floor'],
-  ['WO #2217', 'In Progress', 'Landscaping — Central Courtyard'],
-  ['WO #2218', 'Scheduled', 'Pest Control — Kitchen Block'],
+  ['STEP 1', 'Assess', 'Site visit and documented scope of work'],
+  ['STEP 2', 'Plan', 'Dedicated supervisor and service schedule'],
+  ['STEP 3', 'Deliver', 'Tracked, signed-off service with regular reporting'],
 ];
 
 export default function HeroSlider({ banners }) {
@@ -32,9 +32,8 @@ export default function HeroSlider({ banners }) {
                 <Link to="/services" className="btn btn-outline">Explore Services</Link>
               </div>
               <div className="hero__stats">
-                <div className="hero__stat"><strong>1,200+</strong><span>Trained Staff</span></div>
-                <div className="hero__stat"><strong>9+</strong><span>Years of Operation</span></div>
-                <div className="hero__stat"><strong>ISO</strong><span>9001:2015 Certified</span></div>
+                <div className="hero__stat"><strong>9</strong><span>Core Services</span></div>
+                <div className="hero__stat"><strong>1</strong><span>Accountable Team</span></div>
               </div>
             </div>
             <div className="ticket-stack">

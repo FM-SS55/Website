@@ -1,4 +1,6 @@
 const express = require('express');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 const fs = require('fs');
@@ -9,7 +11,42 @@ const { notFound, errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
 
-app.set('trust proxy', 1); // behind Nginx — needed for secure cookies
+app.set('trust proxy', 1); // behind the host's web server (LiteSpeed/Apache) — needed for secure cookies
+app.disable('x-powered-by');
+
+// Force HTTPS in production (the host terminates TLS and sets X-Forwarded-Proto).
+if (config.isProd) {
+  app.use((req, res, next) => {
+    // Only redirect when the proxy explicitly says the request was plain HTTP (avoids loops if the header is absent).
+    if (req.headers['x-forwarded-proto'] !== 'http' || req.path === '/api/health') return next();
+    return res.redirect(301, `${config.siteUrl}${req.originalUrl}`);
+  });
+}
+
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+        imgSrc: ["'self'", 'data:'],
+        connectSrc: ["'self'"],
+        objectSrc: ["'none'"],
+        frameAncestors: ["'none'"],
+        upgradeInsecureRequests: config.isProd ? [] : null,
+      },
+    },
+    hsts: config.isProd ? { maxAge: 31536000, includeSubDomains: true } : false,
+  })
+);
+
+const limiter = (windowMin, max, message) =>
+  rateLimit({ windowMs: windowMin * 60 * 1000, max, standardHeaders: true, legacyHeaders: false, message: { error: message } });
+app.use('/api/auth/login', limiter(15, 10, 'Too many login attempts. Please try again in 15 minutes.'));
+app.use('/api/contact', limiter(60, 10, 'Too many messages sent. Please try again later.'));
+app.use('/api', limiter(1, 300, 'Too many requests. Please slow down.'));
 
 if (config.corsOrigins.length) {
   // Only needed when frontends run on other origins (e.g. Vite dev servers without proxy).
@@ -23,8 +60,8 @@ if (config.corsOrigins.length) {
   });
 }
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '100kb' }));
+app.use(express.urlencoded({ extended: true, limit: '100kb' }));
 
 fs.mkdirSync(config.databaseDir, { recursive: true });
 app.use(

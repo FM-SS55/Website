@@ -13,7 +13,7 @@ export default function About() {
   usePageTitle('About Us');
   return (
     <>
-      <PageHero title="About Pulizia FM Services" crumbs={[['About Us']]} />
+      <PageHero title="About Mandafia Services" crumbs={[['About Us']]} />
 
       <section className="section">
         <div className="container about-split">
@@ -21,8 +21,8 @@ export default function About() {
           <div className="about-split__text">
             <div className="section-eyebrow">Our Story</div>
             <h2 className="section-title">Built around one idea: one accountable team</h2>
-            <p>Pulizia FM Services was founded in 2016 to solve a simple, recurring problem for facility managers: too many vendors, too little accountability. Instead of separate contracts for housekeeping, security, landscaping, and maintenance, we bring all of it under a single, ISO 9001:2015 certified operation.</p>
-            <p>Today the company supports commercial offices, residential complexes, hospitals, hotels, schools, and universities across the National Capital Region, with a workforce of over 1,200 trained and uniformed staff.</p>
+            <p>Mandafia Services exists to solve a simple, recurring problem for facility managers: too many vendors, too little accountability. Instead of separate contracts for housekeeping, security, landscaping, and maintenance, we bring all of it under a single, accountable operation.</p>
+            <p>We support commercial offices, residential complexes, healthcare, hospitality, and educational sites with trained, uniformed and supervised staff.</p>
             <p>Every engagement starts with a site assessment, a documented scope of work, and a dedicated supervisor — so service levels are measurable, not just promised.</p>
           </div>
         </div>

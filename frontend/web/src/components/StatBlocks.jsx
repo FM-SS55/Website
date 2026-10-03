@@ -1,5 +1,5 @@
 export default function StatBlocks({ items }) {
-  const defaults = [['2016', 'FOUNDED'], ['1,200+', 'STAFF STRENGTH'], ['9', 'CORE SERVICES'], ['ISO', '9001:2015']];
+  const defaults = [['9', 'CORE SERVICES'], ['1', 'POINT OF CONTACT'], ['Trained', 'STAFF'], ['Written', 'SCOPE OF WORK']];
   return (
     <div className="about-split__visual">
       {(items || defaults).map(([value, label]) => (

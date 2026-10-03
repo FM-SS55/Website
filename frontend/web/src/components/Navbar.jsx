@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { site, phoneHref } from '../config/site.js';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
 const links = [
@@ -20,12 +21,11 @@ export default function Navbar() {
       <div className="topbar">
         <div className="topbar__inner">
           <div className="topbar__contact">
-            <a href="tel:+919958449002">📞 +91-9958 449002</a>
-            <a href="mailto:info@puliziafm.com">✉️ info@puliziafm.com</a>
+            {site.phone && <a href={phoneHref(site.phone)}>📞 {site.phone}</a>}
+            <a href={`mailto:${site.email}`}>✉️ {site.email}</a>
           </div>
           <div className="topbar__meta">
-            <span>ISO 9001:2015 Certified</span>
-            <span>Noida, Uttar Pradesh</span>
+            {site.address && <span>{site.address}</span>}
           </div>
         </div>
       </div>
@@ -33,8 +33,8 @@ export default function Navbar() {
       <header className="site-header">
         <div className="site-header__inner">
           <Link to="/" className="brand">
-            <span className="brand__mark">PFM</span>
-            <span className="brand__name">Pulizia<em>FM</em></span>
+            <span className="brand__mark">MS</span>
+            <span className="brand__name">Mandafia<em>Services</em></span>
           </Link>
 
           <button className="nav-toggle" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen((o) => !o)}>

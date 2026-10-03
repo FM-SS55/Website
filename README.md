@@ -1,85 +1,86 @@
-# Pulizia FM Services
+# Mandafia Services — mandafiaservices.com
 
-Website, admin panel and API for Pulizia FM Services.
+Website, admin panel and API for Mandafia Services. One Node.js app serves everything:
+
+| URL | What |
+|---|---|
+| `/` | public website (React + Vite) |
+| `/admin/` | admin panel (manage banners, services, clients, blog, messages) |
+| `/api/*` | REST API (Express + SQLite) |
 
 ```
-Website/
-├── frontend/
-│   ├── web/      public site (React + Vite)         → served at /
-│   ├── admin/    admin panel (React + Vite)         → served at /admin
-│   └── shared/   api client, hooks, utils, components used by both (@shared alias)
-├── backend/      REST API (Express + SQLite)        → /api
-├── devops/       nginx configs, docker gateway, server scripts, monitoring
-├── .github/workflows/deploy.yml   CI/CD (push to main → deploy)
-├── docker-compose.yml
-└── package.json  npm workspaces + root scripts
+frontend/web      public site          frontend/admin   admin panel
+frontend/shared   code used by both    backend          Express API + SQLite
+scripts/package-cpanel.js              builds the upload bundle for GoDaddy
 ```
 
-## Local development
+Business details (email, phone, address) are in **`frontend/web/src/config/site.js`**. Phone and address are empty and hidden until you fill them in.
 
-Requires Node 18+.
+## Local development (Node 18+)
 
 ```bash
-npm install                       # installs all workspaces
-cp backend/.env.example backend/.env   # set SESSION_SECRET, ADMIN_USER, ADMIN_PASS
-npm run migrate                   # creates backend/database/pulizia.sqlite, admin user, starter content
-npm run dev                       # api :3000, web :5173, admin :5174/admin/
+npm install
+cp backend/.env.example backend/.env     # set ADMIN_USER / ADMIN_PASS
+npm run dev                               # api :3000, site :5173, admin :5174/admin/
 ```
 
-- Public site: http://localhost:5173
-- Admin panel: http://localhost:5174/admin/ (log in with `ADMIN_USER` / `ADMIN_PASS`)
+## Deploy to GoDaddy Economy (cPanel + Node.js)
 
-Vite proxies `/api` and `/images/uploads` to the backend, so no CORS setup is needed.
-
-## API overview (`backend/src/routes`)
-
-| Public | |
-|---|---|
-| `GET /api/home` | banners, services, clients, latest posts |
-| `GET /api/services`, `/api/services/:slug` | |
-| `GET /api/clients`, `/api/blog`, `/api/blog/:slug` | |
-| `POST /api/contact` | contact form |
-
-| Auth | |
-|---|---|
-| `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/auth/me` | session cookie |
-
-| Admin (login required) | |
-|---|---|
-| `/api/admin/{banners,services,clients,blog}` | `GET`, `GET /:id`, `POST`, `PUT /:id`, `DELETE /:id` (multipart for image upload) |
-| `GET /api/admin/dashboard` | counts + recent messages |
-| `/api/admin/messages` | `GET`, `PUT /:id/read`, `DELETE /:id` |
-
-Backend layers: `routes → controllers → services → models → config/db`.
-
-## Production
-
-### Option A — Docker
-
+### 1. Build the bundle on your computer
 ```bash
-cp .env.example .env     # edit secrets
-docker compose up -d --build
+npm install
+npm run package:cpanel
 ```
+Open the new `dist-cpanel/` folder, select everything **inside** it and zip it as `mandafia.zip` (`package.json` must be at the top of the zip).
 
-nginx (container) routes `/api` + `/images/uploads` → backend, `/admin` → admin, `/` → web.
-SQLite DB and uploads live in the `db-data` / `upload-data` volumes.
-In production the session cookie is `Secure`, so put HTTPS in front (e.g. certbot / a TLS proxy).
+### 2. Upload
+cPanel → **File Manager**
+1. Create `/home/USER/mandafia-app` (outside `public_html`) → upload `mandafia.zip` → **Extract**.
+2. Create `/home/USER/mandafia-data/uploads`. The database and uploaded images live here so updates never touch them.
 
-### Option B — Lightsail + systemd + host Nginx
+### 3. Create the Node.js app
+cPanel → **Setup Node.js App** → **Create Application**
+- Node.js version: highest available (20 or 22 preferred)
+- Application mode: **Production**
+- Application root: `mandafia-app`
+- Application URL: `mandafiaservices.com`
+- Application startup file: `src/server.js`
 
-1. Run `devops/scripts/setup-server.sh` on a fresh Ubuntu server (edit `REPO_URL` first).
-2. Set your domain in `devops/nginx/nginx.conf`, then `sudo certbot --nginx -d yourdomain.com`.
-3. Add the GitHub secrets `LIGHTSAIL_HOST`, `LIGHTSAIL_USER`, `LIGHTSAIL_SSH_KEY`.
-4. Every push to `main` runs `devops/scripts/deploy.sh` (pull → install → build → migrate → restart).
+Add environment variables:
 
-Useful: `sudo systemctl status pulizia`, `sudo journalctl -u pulizia -f`.
+| Name | Value |
+|---|---|
+| `NODE_ENV` | `production` |
+| `SESSION_SECRET` | 32+ random characters (the app refuses to start without it) |
+| `ADMIN_USER` | your admin username |
+| `ADMIN_PASS` | strong password, 10+ characters (used on first start) |
+| `DB_PATH` | `/home/USER/mandafia-data/mandafia.sqlite` |
+| `UPLOAD_DIR` | `/home/USER/mandafia-data/uploads` |
+| `SITE_URL` | `https://mandafiaservices.com` |
 
-### Backups
+Click **Run NPM Install**, then **Start App**. Tables and the admin account are created automatically on first start.
 
-`devops/scripts/backup.sh` copies `backend/database/pulizia.sqlite` and `backend/uploads/`.
-Those two are the only state that matters.
+### 4. HTTPS (required)
+cPanel → **SSL/TLS Status** → run **AutoSSL** for mandafiaservices.com (the free SSL is included). Then in **Domains**, turn on **Force HTTPS Redirect**. The admin login cookie only works over HTTPS.
 
-## Notes
+### 5. Verify
+- `https://mandafiaservices.com/api/health` → `{"status":"ok"}`
+- `https://mandafiaservices.com/` → website
+- `https://mandafiaservices.com/admin/` → log in
 
-- Existing uploaded-image URLs (`/images/uploads/...`) keep working; move old files into `backend/uploads/`.
-- Run `npm install` once to generate `package-lock.json`, commit it, and switch `deploy.sh` to `npm ci`.
+### 6. Email
+Create `info@mandafiaservices.com` in cPanel → **Email Accounts**. Contact-form messages are stored in the admin panel (Messages); they are not emailed.
+
+## Updating later
+Re-run `npm run package:cpanel`, extract the new zip over `mandafia-app` (overwrite), press **Run NPM Install** only if dependencies changed, then **Restart**. Data in `mandafia-data` is untouched.
+
+## Changing the admin password
+Set `ADMIN_PASS` to the new value and `ADMIN_RESET_PASSWORD=true`, restart the app once, then delete `ADMIN_RESET_PASSWORD`.
+
+## Backups
+Download `/home/USER/mandafia-data/` (the `.sqlite` file and `uploads/`) regularly, or use cPanel → **Backup**. Those are the only data that matter.
+
+## Troubleshooting
+- **App won't start**: read `stderr.log` in the app folder. A message about `SESSION_SECRET` or `ADMIN_PASS` means a variable is missing or too weak.
+- **`npm install` fails on `sqlite3`**: choose a different Node.js version in the app settings and retry; otherwise contact GoDaddy support.
+- **Can't log in**: make sure you are on `https://`.

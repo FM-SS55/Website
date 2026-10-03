@@ -17,7 +17,7 @@ export default function AdminLayout() {
   return (
     <div className="admin-shell">
       <aside className="admin-sidebar">
-        <div className="admin-sidebar__brand">Pulizia<em>FM</em></div>
+        <div className="admin-sidebar__brand">Mandafia<em>Services</em></div>
         <nav className="admin-nav">
           {items.map(([to, label]) => (
             <NavLink key={to} to={to} className={({ isActive }) => (isActive ? 'is-active' : '')}>{label}</NavLink>

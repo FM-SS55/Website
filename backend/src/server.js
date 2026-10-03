@@ -6,7 +6,7 @@ const app = require('./app');
 // shell access (e.g. cPanel) never need a separate migrate step.
 migrate()
   .then(() => {
-    app.listen(config.port, () => console.log(`Pulizia FM running on port ${config.port}`));
+    app.listen(config.port, () => console.log(`Mandafia Services running on port ${config.port}`));
   })
   .catch((err) => {
     console.error('Startup failed:', err);

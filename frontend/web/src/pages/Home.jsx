@@ -25,8 +25,8 @@ export default function Home() {
           <div className="about-split__text">
             <div className="section-eyebrow">Who We Are</div>
             <h2 className="section-title">A single accountable partner for every facility need</h2>
-            <p>Pulizia FM Services brings housekeeping, security, landscaping, technical maintenance, and hospitality support under one roof, so facility managers deal with one team instead of a dozen vendors.</p>
-            <p>Every team member is trained, uniformed, and supervised against documented service standards — the same discipline reflected in our ISO 9001:2015 certification.</p>
+            <p>Mandafia Services brings housekeeping, security, landscaping, technical maintenance, and hospitality support under one roof, so facility managers deal with one team instead of a dozen vendors.</p>
+            <p>Every team member is trained, uniformed, and supervised against documented service standards.</p>
             <ul className="checklist">
               <li>Dedicated site supervisors and quality audits</li>
               <li>Scalable staffing for commercial, healthcare, and residential sites</li>

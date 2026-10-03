@@ -94,6 +94,9 @@ async function migrate() {
   // ---- seed admin user from .env (create once, or update password if it changed) ----
   const username = process.env.ADMIN_USER || 'admin';
   const plainPassword = process.env.ADMIN_PASS || 'change_this_password_before_deploy';
+  if (process.env.NODE_ENV === 'production' && (plainPassword.length < 10 || /change_this|change_me/i.test(plainPassword))) {
+    throw new Error('Set a strong ADMIN_PASS (10+ characters) in the environment before running in production.');
+  }
   const hash = await bcrypt.hash(plainPassword, 10);
 
   const existing = await get('SELECT * FROM admins WHERE username = ?', [username]);
@@ -101,7 +104,12 @@ async function migrate() {
     await run('INSERT INTO admins (username, password_hash) VALUES (?, ?)', [username, hash]);
     console.log(`Admin user "${username}" created.`);
   } else {
-    console.log(`Admin user "${username}" already exists (leaving password as-is — see README to rotate it).`);
+    if (process.env.ADMIN_RESET_PASSWORD === 'true') {
+      await run('UPDATE admins SET password_hash = ? WHERE username = ?', [hash, username]);
+      console.log(`Admin "${username}" password reset from ADMIN_PASS. Remove ADMIN_RESET_PASSWORD afterwards.`);
+    } else {
+      console.log(`Admin user "${username}" already exists (set ADMIN_RESET_PASSWORD=true once to change its password).`);
+    }
   }
 
   // ---- seed starter content only on first-ever run (so re-running migrate never duplicates rows) ----

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { api } from '../services/api.js';
 import usePageTitle from '../utils/usePageTitle.js';
 import PageHero from '../components/PageHero.jsx';
+import { site, phoneHref } from '../config/site.js';
 
 const empty = { name: '', email: '', phone: '', message: '' };
 
@@ -51,10 +52,9 @@ export default function Contact() {
             <div className="section-eyebrow">Reach Us Directly</div>
             <h2 className="section-title">Contact Details</h2>
             <div style={{ marginTop: 20, display: 'grid', gap: 16, fontSize: 15 }}>
-              <div><strong>Phone:</strong> <a href="tel:+919958449002">+91-9958 449002</a></div>
-              <div><strong>Email:</strong> <a href="mailto:info@puliziafm.com">info@puliziafm.com</a></div>
-              <div><strong>Location:</strong> Noida, Uttar Pradesh, India</div>
-              <div><strong>Certification:</strong> ISO 9001:2015</div>
+              {site.phone && <div><strong>Phone:</strong> <a href={phoneHref(site.phone)}>{site.phone}</a></div>}
+              <div><strong>Email:</strong> <a href={`mailto:${site.email}`}>{site.email}</a></div>
+              {site.address && <div><strong>Location:</strong> {site.address}</div>}
             </div>
           </div>
         </div>

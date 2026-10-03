@@ -5,7 +5,7 @@ const { execSync } = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const root = path.join(__dirname, '..', '..');
+const root = path.join(__dirname, '..');
 const out = path.join(root, 'dist-cpanel');
 const run = (cmd) => execSync(cmd, { cwd: root, stdio: 'inherit' });
 

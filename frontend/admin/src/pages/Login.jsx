@@ -27,7 +27,7 @@ export default function Login() {
   return (
     <div className="admin-login">
       <div className="admin-login__card">
-        <div className="admin-login__brand">Pulizia<em>FM</em></div>
+        <div className="admin-login__brand">Mandafia<em>Services</em></div>
         <div className="admin-login__sub">Admin Panel Login</div>
         {error && <div className="alert alert-error">{error}</div>}
         <form onSubmit={onSubmit} className="admin-form">

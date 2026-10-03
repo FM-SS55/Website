@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
+import { site, phoneHref } from '../config/site.js';
 
 export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="site-footer__inner">
         <div className="footer-col footer-col--brand">
-          <span className="brand__name brand__name--light">Pulizia<em>FM</em></span>
-          <p>Integrated facility management for commercial, residential, healthcare, and institutional spaces — one accountable team, trained and ISO 9001:2015 certified.</p>
+          <span className="brand__name brand__name--light">Mandafia<em>Services</em></span>
+          <p>Integrated facility management for commercial, residential, healthcare, and institutional spaces — one accountable team.</p>
         </div>
         <div className="footer-col">
           <h4>Company</h4>
@@ -24,14 +25,14 @@ export default function Footer() {
         </div>
         <div className="footer-col">
           <h4>Get in Touch</h4>
-          <a href="tel:+919958449002">+91-9958 449002</a>
-          <a href="mailto:info@puliziafm.com">info@puliziafm.com</a>
-          <span className="footer-address">Noida, Uttar Pradesh, India</span>
+          {site.phone && <a href={phoneHref(site.phone)}>{site.phone}</a>}
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          {site.address && <span className="footer-address">{site.address}</span>}
         </div>
       </div>
       <div className="site-footer__bottom">
-        <span>&copy; {new Date().getFullYear()} Pulizia FM Services. All rights reserved.</span>
-        <span>ISO 9001:2015 Certified</span>
+        <span>&copy; {new Date().getFullYear()} Mandafia Services. All rights reserved.</span>
+        <span>{site.domain}</span>
       </div>
     </footer>
   );
