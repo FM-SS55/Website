@@ -1,31 +1,17 @@
-# Dependencies
 node_modules/
-
-# Environment / secrets
 .env
-
-# Database (persists on server, never overwritten by deploys)
-database/*.sqlite
-database/*.sqlite-journal
-sessions.sqlite
-
-# Uploaded content (persists on server)
-public/images/uploads/*
-!public/images/uploads/.gitkeep
-
-# Logs
+# build output
+frontend/*/dist/
+# database + uploads persist on the server
+backend/database/*
+!backend/database/.gitkeep
+backend/uploads/*
+!backend/uploads/.gitkeep
+*.sqlite
 *.log
-npm-debug.log*
 logs/
-
-# OS files
 .DS_Store
 Thumbs.db
-
-# Editor files
 .vscode/
 .idea/
-*.swp
-
-# PM2 / process files
-.pm2/
+dist-cpanel/

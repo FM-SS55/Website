@@ -1,15 +1,12 @@
 name: Deploy to Lightsail
 
-# Runs automatically on every push to main.
-# Requires 3 secrets set in GitHub repo Settings > Secrets and variables > Actions:
-#   LIGHTSAIL_HOST      - your Lightsail static IP or domain
-#   LIGHTSAIL_USER      - ssh user (e.g. ubuntu)
-#   LIGHTSAIL_SSH_KEY   - private key contents (paste the whole .pem file)
+# Runs on every push to main. Requires repo secrets:
+#   LIGHTSAIL_HOST, LIGHTSAIL_USER, LIGHTSAIL_SSH_KEY
 
 on:
   push:
     branches: [main]
-  workflow_dispatch: {} # also allows manually triggering a deploy from the Actions tab
+  workflow_dispatch: {}
 
 jobs:
   deploy:
@@ -21,20 +18,4 @@ jobs:
           host: ${{ secrets.LIGHTSAIL_HOST }}
           username: ${{ secrets.LIGHTSAIL_USER }}
           key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
-          script: |
-            set -e
-            cd /var/www/pulizia-fm
-
-            echo "Pulling latest code..."
-            git pull origin main
-
-            echo "Installing dependencies..."
-            npm ci --omit=dev
-
-            echo "Running migrations (safe, non-destructive)..."
-            node scripts/migrate.js
-
-            echo "Restarting app..."
-            sudo systemctl restart pulizia
-
-            echo "Deploy complete."
+          script: bash /var/www/pulizia-fm/devops/scripts/deploy.sh

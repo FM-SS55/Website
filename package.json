@@ -1,26 +1,26 @@
 {
   "name": "pulizia-fm",
-  "version": "1.0.0",
-  "description": "Pulizia FM Services - Integrated Facility Management website with admin panel",
-  "main": "server.js",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Pulizia FM Services \u2014 website, admin panel and API",
+  "workspaces": [
+    "backend",
+    "frontend/web",
+    "frontend/admin"
+  ],
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "migrate": "node scripts/migrate.js"
-  },
-  "dependencies": {
-    "express": "^4.19.2",
-    "express-session": "^1.18.0",
-    "sqlite3": "^5.1.7",
-    "ejs": "^3.1.10",
-    "bcryptjs": "^2.4.3",
-    "multer": "^1.4.5-lts.1",
-    "dotenv": "^16.4.5",
-    "connect-sqlite3": "^0.9.15",
-    "method-override": "^3.0.0"
+    "dev": "concurrently -n api,web,admin -c blue,green,magenta \"npm:dev:backend\" \"npm:dev:web\" \"npm:dev:admin\"",
+    "dev:backend": "npm run dev -w backend",
+    "dev:web": "npm run dev -w frontend/web",
+    "dev:admin": "npm run dev -w frontend/admin",
+    "build": "npm run build -w frontend/web && npm run build -w frontend/admin",
+    "migrate": "npm run migrate -w backend",
+    "start": "npm run start -w backend",
+    "test": "npm test -w backend",
+    "package:cpanel": "node devops/scripts/package-cpanel.js"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "concurrently": "^8.2.2"
   },
   "engines": {
     "node": ">=18.0.0"
